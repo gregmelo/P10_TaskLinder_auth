@@ -1,0 +1,55 @@
+{# templates/employe/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des employés - TaskLinker{% endblock %}
+
+{% block header_content %}
+    <div id="title-page">
+        <h1>Équipe</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <table id="team-container">
+        <thead>
+            <tr>
+                <th>Prénom, Nom</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employe in employes %}
+                <tr>
+                    <td>
+                        <div class="employee-infos">
+                            <div class="employee-avatar">
+                                {# Initiales de l'employé #}
+                                {{ employe.prenom|first|upper }}{{ employe.nom|first|upper }}
+                            </div>
+                            <div class="employee-coords">
+                                <strong>{{ employe.prenom }} {{ employe.nom }}</strong>
+                                <span>{{ employe.email }}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ employe.statut.libelle }}</td>
+                    <td>
+                        {# Bouton Éditer (lien vers la page d'édition) #}
+                        <a class="button button-edit-team" href="{{ path('app_employe_edit', {'id': employe.id}) }}">
+                            Éditer
+                        </a>
+                        
+                        {# Bouton Supprimer (Formulaire POST) #}
+                        <form method="post" action="{{ path('app_employe_delete', {'id': employe.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'employé {{ employe.prenom }} {{ employe.nom }} ?')" style="display:inline-block;">
+                            <button type="submit" class="delete-team" style="background:none; border:none; cursor:pointer; color: red;">
+                                Supprimer
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

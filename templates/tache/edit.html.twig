@@ -1,0 +1,55 @@
+{# templates/tache/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tache.titre }} - TaskLinker{% endblock %}
+
+{% block body %}
+
+    {{ form_start(tacheForm) }}
+
+        {{ form_errors(tacheForm) }}
+        
+        {# Titre #}
+        <div>
+            {{ form_label(tacheForm.titre) }}
+            {{ form_widget(tacheForm.titre) }}
+        </div>
+        
+        {# Description #}
+        <div>
+            {{ form_label(tacheForm.description) }}
+            {{ form_widget(tacheForm.description) }}
+        </div>
+        
+        {# Date et Statut #}
+        <div class="flex-form">
+            <div>
+                {{ form_label(tacheForm.deadline) }}
+                {{ form_widget(tacheForm.deadline) }}
+            </div>
+            <div>
+                {{ form_label(tacheForm.statut) }}
+                {{ form_widget(tacheForm.statut) }}
+            </div>
+        </div>
+        
+        {# Employé #}
+        <div>
+            {{ form_label(tacheForm.employeAssigne) }}
+            {{ form_widget(tacheForm.employeAssigne) }}
+        </div>
+
+        <br>
+        <button class="button button-submit">Modifier</button>
+        
+        {# Lien de suppression, utilisation de l'ID de la tâche #}
+        <a href="{{ path('app_tache_delete', {'id': tache.id}) }}" 
+           class="delete-task" 
+           data-confirm="Êtes-vous sûr de vouloir supprimer la tâche '{{ tache.titre }}' ?">
+            Supprimer la tâche
+        </a>
+        
+    {{ form_end(tacheForm) }}
+    
+{% endblock %}

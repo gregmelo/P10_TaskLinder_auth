@@ -1,0 +1,23 @@
+{# templates/components/_nav.html.twig #}
+<nav>
+    <a href="{{ path('app_home') }}" id="logo">
+        <img src="{{ asset('img/logo.png') }}" alt="Logo TaskLinker" />
+    </a>
+    <ul id="main-menu">
+        {% set current_route = app.request.attributes.get('_route') %}
+
+        {# Section Projets : inclut la home, les projets et les tâches #}
+        <li class="{% if is_active_route(['home', 'projet', 'tache']) %}active{% endif %}">
+            <a href="{{ path('app_home') }}">
+                <i class="fa-solid fa-list-check"></i> Projets
+            </a>
+        </li>
+        
+        {# Section Équipe : inclut uniquement les routes 'app_employe' #}
+        <li class="{% if is_active_route('employe') %}active{% endif %}">
+            <a href="{{ path('app_employe') }}">
+                <i class="fa-regular fa-user"></i> Équipe
+            </a>
+        </li>
+    </ul>
+</nav>

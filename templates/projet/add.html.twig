@@ -1,0 +1,37 @@
+{# templates/projet/add.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau projet - TaskLinker{% endblock %}
+
+{% block body %}
+    {{ form_start(projetForm) }}
+        
+        {# Afficher le champ Titre du projet #}
+        <div>
+            {{ form_label(projetForm.titre) }}
+            {{ form_widget(projetForm.titre) }}
+            {{ form_errors(projetForm.titre) }}
+        </div>
+
+        {# Afficher le champ Inviter des membres #}
+        <div>
+            {{ form_label(projetForm.membres) }}
+            {{ form_widget(projetForm.membres) }}
+            {{ form_errors(projetForm.membres) }}
+        </div>
+
+        <br>
+        <button class="button button-submit">Continuer</button>
+    {{ form_end(projetForm) }}
+    
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            $(document).ready(function() {
+                $('#projet_membres').select2();
+            });
+        </script>
+    {% endblock %}
+    
+{% endblock %}

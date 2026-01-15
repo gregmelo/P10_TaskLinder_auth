@@ -1,0 +1,22 @@
+{# templates/projet/archived.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Projet Archivé - TaskLinker{% endblock %}
+
+{% block header_content %}
+    <div id="title-page">
+        <h1>Accès Restreint</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div style="text-align: center; padding: 50px;">
+        <i class="fa-solid fa-archive" style="font-size: 50px; color: #999;"></i>
+        <h2>Ce projet a été archivé.</h2>
+        <p>Il ne vous est plus possible d'y accéder ni de le modifier.</p>
+        <p>
+            <a href="{{ path('app_home') }}" class="button">Retour à la liste des projets actifs</a>
+        </p>
+    </div>
+{% endblock %}

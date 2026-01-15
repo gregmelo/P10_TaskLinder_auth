@@ -1,0 +1,35 @@
+{# templates/projet/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer {{ projet.titre }} - TaskLinker{% endblock %}
+
+{% block body %}
+    {{ form_start(projetForm) }}
+        
+        <div>
+            {{ form_label(projetForm.titre) }}
+            {{ form_widget(projetForm.titre) }}
+            {{ form_errors(projetForm.titre) }}
+        </div>
+
+        <div>
+            {{ form_label(projetForm.membres) }}
+            {{ form_widget(projetForm.membres) }}
+            {{ form_errors(projetForm.membres) }}
+        </div>
+
+        <br>
+        <button class="button button-submit">Modifier</button>
+    {{ form_end(projetForm) }}
+    
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            $(document).ready(function() {
+                $('#projet_membres').select2();
+            });
+        </script>
+    {% endblock %}
+    
+{% endblock %}

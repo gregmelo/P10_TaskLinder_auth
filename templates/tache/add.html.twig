@@ -1,0 +1,48 @@
+{# templates/tache/add.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une tâche - TaskLinker{% endblock %}
+
+{% block body %}
+    {{ form_start(tacheForm) }}
+
+        {{ form_errors(tacheForm) }}
+        
+        {# Titre #}
+        <div>
+            {{ form_label(tacheForm.titre) }}
+            {{ form_widget(tacheForm.titre) }}
+            {{ form_errors(tacheForm.titre) }}
+        </div>
+        
+        {# Description #}
+        <div>
+            {{ form_label(tacheForm.description) }}
+            {{ form_widget(tacheForm.description) }}
+            {{ form_errors(tacheForm.description) }}
+        </div>
+        
+        {# Date et Statut dans la flex-form #}
+        <div class="flex-form">
+            <div>
+                {{ form_label(tacheForm.deadline) }}
+                {{ form_widget(tacheForm.deadline) }}
+            </div>
+            <div>
+                {{ form_label(tacheForm.statut) }}
+                {{ form_widget(tacheForm.statut) }}
+            </div>
+        </div>
+        
+        {# Employé #}
+        <div>
+            {{ form_label(tacheForm.employeAssigne) }}
+            {{ form_widget(tacheForm.employeAssigne) }}
+        </div>
+
+        <br>
+        <button class="button button-submit">Ajouter</button>
+    {{ form_end(tacheForm) }}
+    
+{% endblock %}

@@ -1,0 +1,32 @@
+{# templates/employe/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer {{ employe.prenom }} {{ employe.nom }} - TaskLinker{% endblock %}
+
+{% block header_content %}
+    <div id="title-page">
+        <h1>{{ employe.prenom }} {{ employe.nom }}</h1>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <form name="employe" method="post">
+        {{ form_start(employeForm) }}
+            
+            <div>{{ form_row(employeForm.nom) }}</div>
+            <div>{{ form_row(employeForm.prenom) }}</div>
+            <div>{{ form_row(employeForm.email) }}</div>
+            
+            <div class="form-flex">
+                {# Date d'entrée #}
+                <div>{{ form_row(employeForm.dateEntree) }}</div>
+                {# Statut #}
+                <div>{{ form_row(employeForm.statut) }}</div>
+            </div>
+            
+            <button class="button button-submit">Enregistrer</button>
+            
+        {{ form_end(employeForm) }}
+    </form>
+{% endblock %}
