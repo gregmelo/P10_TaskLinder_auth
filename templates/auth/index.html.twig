@@ -1,0 +1,49 @@
+{% extends 'auth/base-logout.html.twig' %}
+
+{% block title %}Inscription - TaskLinker{% endblock %}
+
+{% block body %}
+{# <div class="auth-form-container"> #}
+    <h1>S'inscription</h1>
+
+    {{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
+        <div class="form-group">
+            {{ form_label(registrationForm.nom) }}
+            {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom'}}) }}
+            {{ form_errors(registrationForm.nom) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.prenom) }}
+            {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Votre prénom'}}) }}
+            {{ form_errors(registrationForm.prenom) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.email) }}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'votre@email.com'}}) }}
+            {{ form_errors(registrationForm.email) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.plainPassword.first) }}
+            {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder': 'Votre mot de passe'}}) }}
+            {{ form_errors(registrationForm.plainPassword.first) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.plainPassword.second) }}
+            {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder': 'Confirmez votre mot de passe'}}) }}
+            {{ form_errors(registrationForm.plainPassword.second) }}
+        </div>
+
+        {# Afficher l'erreur si les mots de passe ne correspondent pas #}
+        {{ form_errors(registrationForm.plainPassword) }}
+
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
+        <a href="#">Vous avez déjà un compte ?</a>
+
+    {{ form_end(registrationForm) }}
+
+{# </div> #}
+{% endblock %}
