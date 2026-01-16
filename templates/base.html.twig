@@ -1,60 +1,75 @@
 {# templates/base.html.twig #}
 <!DOCTYPE html>
 <html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width; initial-scale=1" />
+        <title>{% block title %}TaskLinker{% endblock %}</title>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width; initial-scale=1" />
-    <title>{% block title %}TaskLinker{% endblock %}</title>
+        {# Liens CSS #}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+            rel="stylesheet"
+        />
 
-    {# Liens CSS #}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        {% block stylesheets %}{% endblock %}
+    </head>
 
-    {% block stylesheets %}{% endblock %}
-</head>
+    <body>
+        <div id="main-container">
+            {# Barre de navigation réutilisable #} {% include
+            'components/_nav.html.twig' %}
 
-<body>
-    <div id="main-container">
-        {# Barre de navigation réutilisable #} {% include
-        'components/_nav.html.twig' %}
+            <main>
+                <header>
+                    <div id="current-user">
+                        {% if app.user %}
+                        <a
+                            href="{{ path('app_logout') }}"
+                            class="user-avatar"
+                            title="Se déconnecter"
+                        >
+                            {{ app.user.prenom | first | upper
+                            }}{{ app.user.nom | first | upper }}
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% block header_content %} {% include
+                    'components/_header.html.twig' with {'page_title':
+                    page_title|default('TaskLinker')} %} {% endblock %}
+                </header>
 
-        <main>
-            <header>
-                <div id="current-user"></div>
-                {% block header_content %} 
-                {% include 'components/_header.html.twig' with {'page_title': page_title|default('TaskLinker')} %} 
-                {% endblock %}
-            </header>
+                <div id="content">
+                    {# Affichage des messages flash (Succès/Erreur) #} {% for
+                    label, messages in app.flashes %} {% for message in messages
+                    %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %} {% endfor %} {# contenu spécifique à chaque
+                    page #} {% block body %} {% endblock %}
+                </div>
+            </main>
+        </div>
 
-            <div id="content">
-                {# Affichage des messages flash (Succès/Erreur) #}
-                {% for label, messages in app.flashes %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ label }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
+        {# Scripts #}
+        <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="{{ asset('js/select.js') }}"></script>
+        <script src="{{ asset('js/confirm.js') }}"></script>
 
-                {# contenu spécifique à chaque page #} 
-                {% block body %}
-                {% endblock %}
-            </div>
-        </main>
-    </div>
-
-    {# Scripts #}
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="{{ asset('js/select.js') }}"></script>
-    <script src="{{ asset('js/confirm.js') }}"></script>
-
-    {% block javascripts %}{% endblock %}
-</body>
-
+        {% block javascripts %}{% endblock %}
+    </body>
 </html>
