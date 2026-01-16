@@ -13,11 +13,13 @@
             </a>
         </li>
         
-        {# Section Équipe : inclut uniquement les routes 'app_employe' #}
+        {# Section Équipe : visible uniquement pour les chefs de projet #}
+        {% if is_granted('ROLE_ADMIN') %}
         <li class="{% if is_active_route('employe') %}active{% endif %}">
             <a href="{{ path('app_employe') }}">
                 <i class="fa-regular fa-user"></i> Équipe
             </a>
         </li>
+        {% endif %}
     </ul>
 </nav>

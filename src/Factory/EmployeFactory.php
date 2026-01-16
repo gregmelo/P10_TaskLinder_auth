@@ -3,6 +3,7 @@
 namespace App\Factory;
 
 use App\Entity\Employe;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
@@ -10,13 +11,11 @@ use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
  */
 final class EmployeFactory extends PersistentProxyObjectFactory
 {
-    /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
-     *
-     * @todo inject services if required
-     */
-    public function __construct()
+    private UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
+        $this->passwordHasher = $passwordHasher;
     }
 
     public static function class(): string
@@ -26,17 +25,15 @@ final class EmployeFactory extends PersistentProxyObjectFactory
 
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories
-     *
-     * @todo add your default values here
      */
     protected function defaults(): array|callable
     {
         return [
-            'nom' => self::faker()->firstName(),
-            'prenom' => self::faker()->lastName(),
-            'email' => self::faker()->email(),
-            'statut' => self::faker()->randomElement(['CDI', 'CDD', 'Stagiaire', 'Alternant']),
+            'nom' => self::faker()->lastName(),
+            'prenom' => self::faker()->firstName(),
+            'email' => self::faker()->unique()->email(),
             'dateEntree' => self::faker()->dateTimeBetween('-5 years', 'now'),
+            'roles' => ['ROLE_USER'], // Rôle par défaut : collaborateur
         ];
     }
 
@@ -46,7 +43,27 @@ final class EmployeFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(Employe $employe): void {})
+            ->afterInstantiate(function(Employe $employe): void {
+                // Hasher le mot de passe par défaut "Test123!@"
+                $hashedPassword = $this->passwordHasher->hashPassword($employe, 'Test123!@');
+                $employe->setPassword($hashedPassword);
+            })
         ;
+    }
+
+    /**
+     * Créer un chef de projet (ROLE_ADMIN)
+     */
+    public function asAdmin(): self
+    {
+        return $this->with(['roles' => ['ROLE_ADMIN']]);
+    }
+
+    /**
+     * Créer un collaborateur (ROLE_USER)
+     */
+    public function asCollaborateur(): self
+    {
+        return $this->with(['roles' => ['ROLE_USER']]);
     }
 }

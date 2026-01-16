@@ -29,7 +29,7 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private array $roles = [];
 
     #[ORM\Column]
@@ -197,7 +197,7 @@ class Employe implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        $roles = $this->roles ?? [];
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 

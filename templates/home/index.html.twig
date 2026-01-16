@@ -9,6 +9,7 @@
         <a href="{{ path('app_projet_fiche', { id: projet.id }) }}">
             <h2>{{ projet.titre }}</h2>
         </a>
+        {% if is_granted('ROLE_ADMIN') %}
         <div class="card-project-icons">
             {# Lien d'édition #}
             <a href="{{ path('app_projet_edit', { id: projet.id }) }}"
@@ -28,13 +29,17 @@
                 <i class="fa-solid fa-trash"></i>
             </a>
         </div>
+        {% endif %}
     </article>
-    {% endfor %} {# Carte pour ajouter un nouveau projet #}
+    {% endfor %} 
+    {# Carte pour ajouter un nouveau projet #}
+    {% if is_granted('ROLE_ADMIN') %}
     <article class="card-project">
         <a href="{{ path('app_projet_add') }}">
             <i class="fa-solid fa-circle-plus add-project-icon"></i>
             <h2>Ajouter un projet</h2>
         </a>
     </article>
+    {% endif %}
 </div>
 {% endblock %}

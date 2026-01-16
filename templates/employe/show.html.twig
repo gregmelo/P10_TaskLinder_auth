@@ -16,6 +16,7 @@
             <tr>
                 <th>Prénom, Nom</th>
                 <th>Statut</th>
+                <th>Rôle</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -35,6 +36,13 @@
                         </div>
                     </td>
                     <td>{{ employe.statut.libelle }}</td>
+                    <td>
+                    {% if 'ROLE_ADMIN' in employe.roles %}
+                        Chef de projet
+                    {% else %}
+                        Collaborateur
+                    {% endif %}
+                    </td>
                     <td>
                         {# Bouton Éditer (lien vers la page d'édition) #}
                         <a class="button button-edit-team" href="{{ path('app_employe_edit', {'id': employe.id}) }}">

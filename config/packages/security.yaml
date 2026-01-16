@@ -35,8 +35,19 @@ security:
 
     # Note: Only the *first* matching rule is applied
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # Pages publiques (authentification)
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/logout, roles: PUBLIC_ACCESS }
+        - { path: ^/inscription, roles: PUBLIC_ACCESS }
+    
+        # Pages réservées aux chefs de projet (ROLE_ADMIN)
+        - { path: ^/employe, roles: ROLE_ADMIN }
+        - { path: ^/projet/new, roles: ROLE_ADMIN }
+        - { path: ^/projet/\d+/edit, roles: ROLE_ADMIN }
+        - { path: ^/projet/\d+/archive, roles: ROLE_ADMIN }
+    
+        # Toutes les autres pages nécessitent d'être connecté
+        - { path: ^/, roles: ROLE_USER }
 
 when@test:
     security:

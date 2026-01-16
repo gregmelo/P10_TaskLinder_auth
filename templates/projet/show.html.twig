@@ -19,8 +19,10 @@
             </div>
             {% endfor %}
         </div>
-        {# Lien de modification #}
+        {# Lien de modification - visible uniquement pour les admins #}
+        {% if is_granted('ROLE_ADMIN') %}
         <a class="button" href="{{ path('app_projet_edit', {'id': projet.id}) }}">Modifier</a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
