@@ -9,8 +9,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: EmployeRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Un compte existe déjà avec cet e-mail.')]
 class Employe implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
