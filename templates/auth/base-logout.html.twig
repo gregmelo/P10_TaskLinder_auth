@@ -1,4 +1,4 @@
-{# templates/base-logout.html.twig #}
+{# templates/auth/base-logout.html.twig #}
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -16,21 +16,24 @@
     {% block stylesheets %}{% endblock %}
 </head>
 
-<body>
-    <div id="auth-container">
-        <main class="auth-main">
-            {# Affichage des messages flash (Succès/Erreur) #}
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ label }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
+<body class="logout-page">
+    <header class="logout-header">
+        <a href="{{ path('app_login') }}">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo TaskLinker" />
+        </a>
+    </header>
 
-            {# Contenu spécifique à chaque page #}
-            {% block body %}{% endblock %}
-        </main>
+    <div id="main-content-logout">
+        {# Affichage des messages flash #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <p class="{% if label == 'danger' %}error-login{% endif %}">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endfor %}
+
+        {% block body %}{% endblock %}
     </div>
 
     {% block javascripts %}{% endblock %}

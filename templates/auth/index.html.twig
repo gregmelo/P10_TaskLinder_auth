@@ -3,10 +3,10 @@
 {% block title %}Inscription - TaskLinker{% endblock %}
 
 {% block body %}
-{# <div class="auth-form-container"> #}
-    <h1>S'inscription</h1>
+    <h1>Inscription</h1>
+    <p class="subtitle">Créez votre compte TaskLinker</p>
 
-    {{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
+    {{ form_start(registrationForm) }}
         <div class="form-group">
             {{ form_label(registrationForm.nom) }}
             {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom'}}) }}
@@ -37,13 +37,10 @@
             {{ form_errors(registrationForm.plainPassword.second) }}
         </div>
 
-        {# Afficher l'erreur si les mots de passe ne correspondent pas #}
         {{ form_errors(registrationForm.plainPassword) }}
 
-        <button type="submit" class="btn btn-primary">S'inscrire</button>
-        <a href="#">Vous avez déjà un compte ?</a>
-
+        <button type="submit" class="button">S'inscrire</button>
     {{ form_end(registrationForm) }}
 
-{# </div> #}
+    <a href="{{ path('app_login') }}" class="link-logout">Déjà un compte ? Se connecter</a>
 {% endblock %}

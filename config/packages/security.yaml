@@ -18,12 +18,15 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            entry_point: form_login
             form_login:
-                login_path: app_login
+                login_path: app_welcome
                 check_path: app_login
                 enable_csrf: true
+                default_target_path: app_home
             logout:
                 path: app_logout
+                target: app_welcome
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -39,6 +42,7 @@ security:
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/logout, roles: PUBLIC_ACCESS }
         - { path: ^/inscription, roles: PUBLIC_ACCESS }
+        - { path: ^/bienvenue, roles: PUBLIC_ACCESS }
     
         # Pages réservées aux chefs de projet (ROLE_ADMIN)
         - { path: ^/employe, roles: ROLE_ADMIN }

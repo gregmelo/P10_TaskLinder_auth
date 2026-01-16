@@ -9,6 +9,17 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    #[Route('/bienvenue', name: 'app_welcome')]
+    public function welcome(): Response
+    {
+        // Si l'utilisateur est déjà connecté, rediriger vers la home
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('auth/bienvenue.html.twig');
+    }
+
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {

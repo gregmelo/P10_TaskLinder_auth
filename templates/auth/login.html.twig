@@ -3,15 +3,13 @@
 {% block title %}Connexion - TaskLinker{% endblock %}
 
 {% block body %}
-<div class="auth-form-container">
     <h1>Se connecter</h1>
-    <p class="auth-subtitle">Connectez-vous à votre compte</p>
 
     {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <p class="error-login">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
     {% endif %}
 
-    <form method="post" class="auth-form">
+    <form method="post">
         <div class="form-group">
             <label for="username">E-mail</label>
             <input type="email" value="{{ last_username }}" name="_username" id="username" 
@@ -24,14 +22,10 @@
                    class="form-control" placeholder="Votre mot de passe" autocomplete="current-password" required>
         </div>
 
-        {# Token CSRF pour la sécurité #}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <button type="submit" class="btn btn-primary">Se connecter</button>
+        <button type="submit" class="button">Se connecter</button>
     </form>
 
-    <p class="auth-link">
-        <a href="{{ path('app_registration') }}">Pas de compte ? S'inscrire</a>
-    </p>
-</div>
+    <a href="{{ path('app_registration') }}" class="link-logout">Pas encore de compte ? S'inscrire</a>
 {% endblock %}
